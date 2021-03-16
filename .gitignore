@@ -9,7 +9,9 @@ npm-debug.*
 *.orig.*
 web-build/
 
+
 # Default ignored files
+.idea/*
 /shelf/
 /workspace.xml
 # Editor-based HTTP Client requests
@@ -36,6 +38,7 @@ web-build/
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+
 
 # Gradle
 .idea/**/gradle.xml
