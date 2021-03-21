@@ -1,7 +1,7 @@
 import {StatusBar} from 'expo-status-bar';
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {AppLoading} from "expo";
+import AppLoading from "expo-app-loading";
 import * as Font from 'expo-font'; // npm install --save expo-font
 
 const fetchFonts = () => {
