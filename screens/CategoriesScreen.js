@@ -1,13 +1,23 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button} from "react-native";
+import {View, Text, StyleSheet, Button, FlatList} from "react-native";
 import CategoryMealsScreen from "./CategoryMealsScreen";
 
-const CategoriesScreen = (props) => {
+import {CATEGORIES} from "../data/dummy-data";
+import {TouchableOpacity} from "react-native";
+
+const renderGridItem = itemData => {
     return (
-        <View style={styles.screen}>
-            <Button title="Go to meals" onPress={() => {props.navigation.navigate('CategoryMeals')}}/>
-            <Text>This is the Categories Screen</Text>
-        </View>
+        <TouchableOpacity>
+            <View>
+                <Text>{itemData.item.title}</Text>
+            </View>
+        </TouchableOpacity>
+    )
+}
+
+const CategoriesScreen = (props) => {
+    return ( // latest rn does not need a keyExtractor on a FlatList component :)
+        <FlatList data={CATEGORIES} renderItem={renderGridItem} numColumns={2}/>
     )
 };
 
