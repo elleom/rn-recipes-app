@@ -1,11 +1,9 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button, FlatList, Platform} from "react-native";
-import CategoryMealsScreen from "./CategoryMealsScreen";
 import {Dimensions} from "react-native";
-
 import {CATEGORIES} from "../data/dummy-data";
 import {TouchableOpacity} from "react-native";
-import Colors from "../constants/Colors";
+
 
 const CategoriesScreen = (props) => {
 
