@@ -3,25 +3,24 @@ import {View, Text, StyleSheet, Button, FlatList, Platform} from "react-native";
 import {Dimensions} from "react-native";
 import {CATEGORIES} from "../data/dummy-data";
 import {TouchableOpacity} from "react-native";
+import CategoryGridTile from "../components/CategoryGridTile";
 
 
 const CategoriesScreen = (props) => {
 
     const renderGridItem = itemData => {
         return (
-            <TouchableOpacity onPress={() => {
+            <CategoryGridTile
+                title={itemData.item.title}
+                color={itemData.item.color}
+                onSelect={() => {
                 props.navigation.navigate({
                     routeName: 'CategoryMeals',
-                    params: { categoryId: itemData.item.id //pass on the id to select what to display
+                    params: {categoryId: itemData.item.id} //pass on the id to select what to display
+                })
+            }}/>)
+    };
 
-                    }})
-            }}>
-                <View style={styles.gridItem}>
-                    <Text>{itemData.item.title}</Text>
-                </View>
-            </TouchableOpacity>
-        )
-    }
     return ( // latest rn does not need a keyExtractor on a FlatList component :)
         <FlatList data={CATEGORIES} renderItem={renderGridItem} numColumns={2}/>
     )
