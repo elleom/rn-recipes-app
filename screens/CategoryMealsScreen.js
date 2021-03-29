@@ -1,20 +1,24 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button, Platform} from "react-native";
-import {CATEGORIES} from "../data/dummy-data";
+import {CATEGORIES, MEALS} from "../data/dummy-data";
 import Colors from '../constants/Colors'
 import {FlatList} from "react-native-web";
 
 const CategoryMealsScreen = (props) => {
     const catId = props.navigation.getParam('categoryId') //extracts the parameters we pass from the call navigator
-    const selectedCategory = CATEGORIES.find(cat => cat.id === catId)
+    const displayMeals = MEALS.filter(meal => meal.categoryIds.indexOf(catId) >= 0);
+
+    const renderReciepeItem = (itemData) => {
+        return(
+            <View>
+                <Text>{itemData.item.name}</Text>
+            </View>
+        )
+    }
 
     return (
         <View style={styles.screen}>
-            <Text>{selectedCategory.title}</Text>
-
-            <Button title='details' onPress={() => {
-                props.navigation.navigate("MealDetails")
-            }}/>
+            <FlatList data={displayMeals} renderItem={renderReciepeItem} />
         </View>
     )
 };
