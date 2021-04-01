@@ -11,10 +11,12 @@ const CategoryMealsScreen = (props) => {
     );
 
     const renderMealItem = (itemData) => {
-        return(
+        return (
             <MealItem
                 title={itemData.item.title}
-                onSelectMeal={() => {}}
+                onSelectMeal={() => {
+                    props.navigation.navigate({routeName: 'MealDetails'})
+                }}
                 duration={itemData.item.duration}
                 complexity={itemData.item.complexity.toUpperCase()}
                 affordability={itemData.item.affordability.toUpperCase()}
@@ -25,7 +27,7 @@ const CategoryMealsScreen = (props) => {
 
     return (
         <View style={styles.screen}>
-            <FlatList style={styles.flatList} data={displayedMeals} renderItem={renderMealItem} />
+            <FlatList style={styles.flatList} data={displayedMeals} renderItem={renderMealItem}/>
         </View>
     )
 };
