@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 
     },
     title: {
-        //fontFamily: 'open-sans-bold',
+        fontFamily: 'open-sans-bold',
         fontSize: 22,
         textAlign: 'right',
     },

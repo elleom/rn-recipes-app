@@ -18,6 +18,7 @@ const CategoryMealsScreen = (props) => {
                 duration={itemData.item.duration}
                 complexity={itemData.item.complexity.toUpperCase()}
                 affordability={itemData.item.affordability.toUpperCase()}
+                image={itemData.item.imageUrl}
             />
         )
     }
