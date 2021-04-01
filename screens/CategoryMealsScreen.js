@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, Button, Platform, FlatList} from "react-native";
 import {CATEGORIES, MEALS} from "../data/dummy-data";
 import Colors from '../constants/Colors'
+import MealItem from "../components/MealItem";
 
 const CategoryMealsScreen = (props) => {
     const catId = props.navigation.getParam('categoryId') //extracts the parameters we pass from the call navigator
@@ -11,15 +12,19 @@ const CategoryMealsScreen = (props) => {
 
     const renderMealItem = (itemData) => {
         return(
-            <View>
-                <Text>{itemData.item.title}</Text>
-            </View>
+            <MealItem
+                title={itemData.item.title}
+                onSelectMeal={() => {}}
+                duration={itemData.item.duration}
+                complexity={itemData.item.complexity.toUpperCase()}
+                affordability={itemData.item.affordability.toUpperCase()}
+            />
         )
     }
 
     return (
         <View style={styles.screen}>
-            <FlatList data={displayedMeals} renderItem={renderMealItem} />
+            <FlatList style={styles.flatList} data={displayedMeals} renderItem={renderMealItem} />
         </View>
     )
 };
@@ -39,6 +44,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    flatList: {
+        width: '100%'
     }
 })
 
