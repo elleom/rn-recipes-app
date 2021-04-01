@@ -1,6 +1,6 @@
 class Meal {
 
-    constructor(id, categoryIds, title, affordability, complexity, imageUrl, duration, ingredients, steps, isGlutenFree, isVegan, isVegetarian){
+    constructor(id, categoryIds, title, affordability, complexity, imageUrl, duration, ingredients, steps, isGlutenFree, isVegan, isVegetarian, isLactoseFree) {
         this.id = id;
         this.categoryIds = categoryIds;
         this.title = title;
@@ -13,8 +13,11 @@ class Meal {
         this.isGlutenFree = isGlutenFree; //bool
         this.isVegan = isVegan; //bool
         this.isVegetarian = isVegetarian; //bool
+        this.isLacotoseFree = isLactoseFree; //bool
 
 
     }
 
 }
+
+export default Meal;
