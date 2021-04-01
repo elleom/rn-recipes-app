@@ -1,13 +1,25 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button} from "react-native";
+import {MEALS} from "../data/dummy-data";
 
-const CategoriesScreen = (props) => {
+const MealDetailScreen = (props) => {
+    const mealId = props.navigation.getParam('mealId');
+    const selectedMeal = MEALS.find(meal => meal.id === mealId  )
+
     return (
         <View style={styles.screen}>
             <Text>This is the Meal details Screen</Text>
         </View>
     )
 };
+
+MealDetailScreen.navigationOptions = (navigationData) => {
+    const mealId = navigationData.navigation.getParam('mealId');
+    const selectedMeal = MEALS.find(meal => meal.id === mealId  )
+    return {
+        headerTitle: selectedMeal.title
+    };
+}
 
 const styles = StyleSheet.create({
     screen: {
@@ -17,4 +29,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default CategoriesScreen;
+export default MealDetailScreen;

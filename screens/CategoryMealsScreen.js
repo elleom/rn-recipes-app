@@ -15,7 +15,7 @@ const CategoryMealsScreen = (props) => {
             <MealItem
                 title={itemData.item.title}
                 onSelectMeal={() => {
-                    props.navigation.navigate({routeName: 'MealDetails'})
+                    props.navigation.navigate({routeName: 'MealDetails', param: { mealId: itemData.item.id}})
                 }}
                 duration={itemData.item.duration}
                 complexity={itemData.item.complexity.toUpperCase()}
