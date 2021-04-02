@@ -29,6 +29,15 @@ const MealsNavigator = createStackNavigator({
 
 });
 
+const FavNavigator = createStackNavigator({
+    Favourites: FavouritesScreen,
+    MealDetails: MealDetailsScreen
+}, {defaultNavigationOptions: defaultStackNavOptions})
+
+FavouritesScreen.navigationOptions = {
+    headerTitle: 'My Favourites'
+}
+
 const tabScreenConfig = {
     Meals: {
         screen: MealsNavigator, navigationOptions: {
@@ -39,7 +48,7 @@ const tabScreenConfig = {
         }
     },
     Favourites: {
-        screen: FavouritesScreen, navigationOptions: {
+        screen: FavNavigator, navigationOptions: {
             tabBarIcon: (tabInfo) => {
                 return (<Ionicons name='ios-star' size={25} color={tabInfo.tintColor}/>)
             },
@@ -66,10 +75,7 @@ const MealsFavTabNavigator = Platform.OS === 'android'
         }
     )
 
-createStackNavigator({
-    Favourites: FavouritesScreen,
-    MealDetails: MealDetailsScreen
-}, {defaultNavigationOptions: defaultStackNavOptions})
+
 
 export default createAppContainer(MealsFavTabNavigator); //important pattern
 
