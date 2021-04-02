@@ -1,6 +1,6 @@
 import React from "react";
 import {createStackNavigator} from 'react-navigation-stack'
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createAppContainer} from 'react-navigation'
 import CategoriesScreen from "../screens/CategoriesScreen";
 import CategoryMealsScreen from "../screens/CategoryMealsScreen";
@@ -26,15 +26,22 @@ const MealsNavigator = createStackNavigator({
     }
 });
 
-const MealsFavTabNavigator = createBottomTabNavigator ({ // need specification over the
+const MealsFavTabNavigator = createBottomTabNavigator({ // need specification over the
     //set identifier + object
-    Meals : {screen: MealsNavigator, navigationOptions: {
-        tabBarIcon: (tabInfo) => {
-            return ( <Ionicons name='ios-restaurant' size={25} color={tabInfo.tintColor} />)
+    Meals: {
+        screen: MealsNavigator, navigationOptions: {
+            tabBarIcon: (tabInfo) => {
+                return (<Ionicons name='ios-restaurant' size={25} color={tabInfo.tintColor}/>)
+            }
         }
-        }},
-    Favourites: FavouritesScreen
-
+    },
+    Favourites: {
+        screen: FavouritesScreen, navigationOptions: {
+            tabBarIcon: (tabInfo) => {
+                return (<Ionicons name='ios-star' size={25} color={tabInfo.tintColor}/>)
+            }
+        }
+    },
 }, {
     tabBarOptions: {
         activeTintColor: Colors.accentColor,
