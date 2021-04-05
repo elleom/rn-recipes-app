@@ -4,6 +4,7 @@ import {View, Text, Image, Button, StyleSheet, ScrollView} from 'react-native';
 import {MEALS} from '../data/dummy-data';
 import HeaderButton from "../components/HeaderButton";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
+import MealDetails from "../components/MealDetails";
 
 const MealDetailScreen = props => {
     const mealId = props.navigation.getParam('mealId');
@@ -20,10 +21,10 @@ const MealDetailScreen = props => {
             </View>
             <Text style={styles.textTitle}>Ingredients</Text>
             {selectedMeal.ingredients.map(ingredient =>
-            <Text key={ingredient}>{ingredient}</Text>
+                <MealDetails key={ingredient}>{ingredient}</MealDetails>
             )}
             <Text style={styles.textTitle}>Steps</Text>
-            {selectedMeal.steps.map(step => <Text key={step}>{step}</Text>)}
+            {selectedMeal.steps.map(step => <MealDetails key={step}>{step}</MealDetails>)}
         </ScrollView>
     );
 };
