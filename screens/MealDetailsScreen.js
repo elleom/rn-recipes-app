@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import {View, Text, Image, Button, StyleSheet, ScrollView} from 'react-native';
 
-import { MEALS } from '../data/dummy-data';
+import {MEALS} from '../data/dummy-data';
 import HeaderButton from "../components/HeaderButton";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 
@@ -11,15 +11,18 @@ const MealDetailScreen = props => {
     const selectedMeal = MEALS.find(meal => meal.id === mealId);
 
     return (
-        <View style={styles.screen}>
-            <Text>{selectedMeal.title}</Text>
-            <Button
-                title="Go Back to Categories"
-                onPress={() => {
-                    props.navigation.popToTop();
-                }}
-            />
-        </View>
+        <ScrollView>
+            <Image source={{uri: selectedMeal.imageUrl}} style={styles.image}/>
+            <View style={styles.details}>
+                <Text>{selectedMeal.duration}m</Text>
+                <Text>{selectedMeal.complexity.toUpperCase()}</Text>
+                <Text>{selectedMeal.affordability.toUpperCase()}</Text>
+            </View>
+            <Text style={styles.textTitle}>Ingredients</Text>
+            <Text>List of ingredients...</Text>
+            <Text style={styles.textTitle}>Steps</Text>
+            <Text>List of steps...</Text>
+        </ScrollView>
     );
 };
 
@@ -30,17 +33,34 @@ MealDetailScreen.navigationOptions = navigationData => {
         headerTitle: selectedMeal.title,
         headerRight: () =>
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item title='Favourite' iconName='ios-star' onPress={() => {console.log('marked as favourite')}} />
+                <Item title='Favourite' iconName='ios-star' onPress={() => {
+                    console.log('marked as favourite')
+                }}/>
             </HeaderButtons>
     };
 };
 
 const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+    image: {
+        width: '100%',
+        height: 200,
+
+    },
+    details: {
+        flexDirection: 'row',
+        padding: 15,
+        justifyContent: 'space-around'
+
+
+    },
+    textTitle: {
+        fontFamily: 'open-sans',
+        fontSize: 18,
+        textAlign: 'center',
+
     }
+
+
 });
 
 export default MealDetailScreen;
