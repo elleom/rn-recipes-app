@@ -19,9 +19,11 @@ const MealDetailScreen = props => {
                 <Text>{selectedMeal.affordability.toUpperCase()}</Text>
             </View>
             <Text style={styles.textTitle}>Ingredients</Text>
-            <Text>List of ingredients...</Text>
+            {selectedMeal.ingredients.map(ingredient =>
+            <Text key={ingredient}>{ingredient}</Text>
+            )}
             <Text style={styles.textTitle}>Steps</Text>
-            <Text>List of steps...</Text>
+            {selectedMeal.steps.map(step => <Text key={step}>{step}</Text>)}
         </ScrollView>
     );
 };
