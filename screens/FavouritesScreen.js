@@ -4,8 +4,8 @@ import {useSelector} from "react-redux";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import HeaderButton from "../components/HeaderButton";
 
-const FavouritesScreen = props => {
-    const favMeals = useSelector(state => state.meals.favouriteMeals)
+const FavoritesScreen = props => {
+    const favMeals = useSelector(state => state.meals.favoriteMeals)
 
     //const favMeals = availableMeals.filter(meal => meal.id === 'm1' || meal.id === 'm2') //dummy logic
     return (
@@ -13,7 +13,7 @@ const FavouritesScreen = props => {
     )
 };
 
-FavouritesScreen.navigationOptions = navData => {
+FavoritesScreen.navigationOptions = navData => {
     return ({
         headerTitle: 'My Favourites',
         headerLeft:
@@ -29,4 +29,4 @@ FavouritesScreen.navigationOptions = navData => {
 }
 
 
-export default FavouritesScreen;
+export default FavoritesScreen;
