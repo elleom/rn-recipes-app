@@ -6,6 +6,7 @@ import HeaderButton from "../components/HeaderButton";
 import {View, Text, StyleSheet} from "react-native";
 import DefaultText from "../components/DefaultText";
 
+
 const FavoritesScreen = props => {
     const favMeals = useSelector(state => state.meals.favoriteMeals)
 
