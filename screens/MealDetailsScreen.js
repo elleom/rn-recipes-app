@@ -1,82 +1,106 @@
-import React, {useCallback, useEffect} from 'react';
-import {View, Text, Image, Button, StyleSheet, ScrollView} from 'react-native';
+import React, { useEffect, useCallback } from 'react';
+import { ScrollView, View, Image, Text, StyleSheet } from 'react-native';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useSelector, useDispatch } from 'react-redux';
 
-import {useSelector, useDispatch} from "react-redux";
-import HeaderButton from "../components/HeaderButton";
-import {HeaderButtons, Item} from "react-navigation-header-buttons";
-import MealDetails from "../components/MealDetails";
-import {toggleFavorite} from "../store/actions/meals";
+import HeaderButton from '../components/HeaderButton';
+import DefaultText from '../components/DefaultText';
+import { toggleFavorite } from '../store/actions/meals';
+
+const ListItem = props => {
+    return (
+        <View style={styles.listItem}>
+            <DefaultText>{props.children}</DefaultText>
+        </View>
+    );
+};
 
 const MealDetailScreen = props => {
+    const availableMeals = useSelector(state => state.meals.meals);
     const mealId = props.navigation.getParam('mealId');
-    const availableMeals = useSelector(state=> state.meals.meals)
+    const currentMealIsFavorite = useSelector(state =>
+        state.meals.favoriteMeals.some(meal => meal.id === mealId)
+    );
 
     const selectedMeal = availableMeals.find(meal => meal.id === mealId);
+
     const dispatch = useDispatch();
-    const toggleFavouriteHandler = useCallback(() => {
+
+    const toggleFavoriteHandler = useCallback(() => {
         dispatch(toggleFavorite(mealId));
     }, [dispatch, mealId]);
 
+    useEffect(() => {
+        // props.navigation.setParams({ mealTitle: selectedMeal.title });
+        props.navigation.setParams({ toggleFav: toggleFavoriteHandler });
+    }, [toggleFavoriteHandler]);
 
-    useEffect(() => { //prevents the infinite loop
-        //props.navigation.setParams({mealTitle: selectedMeal.title}) //sends the title to the header when rendered
-        props.navigation.setParams({toggleFav: toggleFavouriteHandler})
-    }, [toggleFavouriteHandler()]) //when selectedMeals changes then info gets forwarded
+    useEffect(() => {
+        props.navigation.setParams({ isFav: currentMealIsFavorite });
+    }, [currentMealIsFavorite]);
 
     return (
         <ScrollView>
-            <Image source={{uri: selectedMeal.imageUrl}} style={styles.image}/>
+            <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
             <View style={styles.details}>
-                <Text>{selectedMeal.duration}m</Text>
-                <Text>{selectedMeal.complexity.toUpperCase()}</Text>
-                <Text>{selectedMeal.affordability.toUpperCase()}</Text>
+                <DefaultText>{selectedMeal.duration}m</DefaultText>
+                <DefaultText>{selectedMeal.complexity.toUpperCase()}</DefaultText>
+                <DefaultText>{selectedMeal.affordability.toUpperCase()}</DefaultText>
             </View>
-            <Text style={styles.textTitle}>Ingredients</Text>
-            {selectedMeal.ingredients.map(ingredient =>
-                <MealDetails key={ingredient}>{ingredient}</MealDetails>
-            )}
-            <Text style={styles.textTitle}>Steps</Text>
-            {selectedMeal.steps.map(step => <MealDetails key={step}>{step}</MealDetails>)}
+            <Text style={styles.title}>Ingredients</Text>
+            {selectedMeal.ingredients.map(ingredient => (
+                <ListItem key={ingredient}>{ingredient}</ListItem>
+            ))}
+            <Text style={styles.title}>Steps</Text>
+            {selectedMeal.steps.map(step => (
+                <ListItem key={step}>{step}</ListItem>
+            ))}
         </ScrollView>
     );
 };
 
 MealDetailScreen.navigationOptions = navigationData => {
-    //const mealId = navigationData.navigation.getParam('mealId');
-    const mealTitle = navigationData.navigation.getParam('mealTitle')
-    const toggleFavorite = navigationData.navigation.getParam('toggleFav')
-
-    //const selectedMeal = MEALS.find(meal => meal.id === mealId); //replaced with mealTitle
+    // const mealId = navigationData.navigation.getParam('mealId');
+    const mealTitle = navigationData.navigation.getParam('mealTitle');
+    const toggleFavorite = navigationData.navigation.getParam('toggleFav');
+    const isFavorite = navigationData.navigation.getParam('isFav');
+    // const selectedMeal = MEALS.find(meal => meal.id === mealId);
     return {
         headerTitle: mealTitle,
-        headerRight: () =>
+        headerRight: (
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item title='Favourite' iconName='ios-star' onPress={toggleFavorite}/>
+                <Item
+                    title="Favorite"
+                    iconName={isFavorite ? 'ios-star' : 'ios-star-outline'}
+                    onPress={toggleFavorite}
+                />
             </HeaderButtons>
+        )
     };
 };
 
 const styles = StyleSheet.create({
     image: {
         width: '100%',
-        height: 200,
-
+        height: 200
     },
     details: {
         flexDirection: 'row',
         padding: 15,
         justifyContent: 'space-around'
-
-
     },
-    textTitle: {
-        fontFamily: 'open-sans',
-        fontSize: 18,
-        textAlign: 'center',
-
+    title: {
+        fontFamily: 'open-sans-bold',
+        fontSize: 22,
+        textAlign: 'center'
+    },
+    listItem: {
+        marginVertical: 10,
+        marginHorizontal: 20,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        padding: 10
     }
-
-
 });
 
 export default MealDetailScreen;
