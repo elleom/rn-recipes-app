@@ -13,7 +13,7 @@ class Meal {
         this.isGlutenFree = isGlutenFree; //bool
         this.isVegan = isVegan; //bool
         this.isVegetarian = isVegetarian; //bool
-        this.isLacotoseFree = isLactoseFree; //bool
+        this.isLactoseFree = isLactoseFree; //bool
 
 
     }
